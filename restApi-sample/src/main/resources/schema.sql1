@@ -1,0 +1,79 @@
+CREATE TABLE IF NOT EXISTS Customers(
+  Id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  CustomerName VARCHAR(120) NOT NULL,
+  MainContactName VARCHAR(120) NOT NULL,
+  Country VARCHAR(120) NOT NULL,
+  City VARCHAR(120) NOT NULL,
+  AddressLine1 VARCHAR(120) NOT NULL,
+  PostalCode VARCHAR(120) NOT NULL,
+  ContactEmail VARCHAR(120) NOT NULL,
+  MainPhone VARCHAR(120) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ShippingCompany(
+  Id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  CompanyName VARCHAR(120) NOT NULL,
+  ContactName VARCHAR(120) NOT NULL,
+  Address VARCHAR(120) NOT NULL,
+  Country VARCHAR(120) NOT NULL,
+  City VARCHAR(120) NOT NULL,
+  Latitude Double,
+  Longitude Double
+);
+
+CREATE TABLE IF NOT EXISTS Product(
+  Id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  ProductName VARCHAR(120) NOT NULL,
+  ProductCode INT NOT NULL,
+  Picture VARCHAR(200) NOT NULL,
+  Category VARCHAR(120) NOT NULL,
+  ProductDescription VARCHAR(200) NOT NULL,
+  DistributorLogo VARCHAR(200) NOT NULL,
+  Price Double NOT NULL,
+  DistributorPhone INT NOT NULL,
+  QuantityStock BIGINT  NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Orders(
+  Id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  CustomerId BIGINT NOT NULL,
+  ShippingCompanyId BIGINT NOT NULL,
+  OrderDate DATETIME NOT NULL,
+  
+  INDEX (CustomerId),
+  INDEX (ShippingCompanyId),
+  
+  FOREIGN KEY (CustomerId)
+      REFERENCES Customers(Id)
+      ON DELETE CASCADE,
+
+  FOREIGN KEY (ShippingCompanyId)
+      REFERENCES ShippingCompany(Id)
+      ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS OrderLine(
+  Id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  OrderId BIGINT NOT NULL,
+  ProductId BIGINT NOT NULL,
+  Quantity INT NOT NULL,
+  
+  INDEX (OrderId),
+  INDEX (ProductId),
+
+  FOREIGN KEY (OrderId)
+      REFERENCES Orders(Id)
+      ON DELETE CASCADE,
+
+  FOREIGN KEY (ProductId)
+      REFERENCES Product(Id)
+      ON DELETE CASCADE
+  
+);
+
+
+
+
+
+
+

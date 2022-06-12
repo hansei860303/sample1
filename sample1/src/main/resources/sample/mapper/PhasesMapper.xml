@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sample.mapper.PhasesMapper">
+	
+	<!-- mapperタグ内に、以下を追加 -->
+	
+	<select id="count" resultType="Long">
+		SELECT COUNT(*) FROM phases
+	</select>
+	
+	<select id ="selectAll" resultType="sample.model.Phases">
+		SELECT * FROM phases ORDER BY sort
+	</select>
+	
+	<select id="selectByPrimaryKey" resultType="sample.model.Phases">
+		SELECT * FROM phases
+		WHERE id = #{Id}
+	</select>
+
+	<insert id="insert">
+		INSERT INTO phases( 
+			phase,
+			sort
+		)
+		VALUES( #{Phase},
+		        #{Sort}
+		      )
+	</insert>
+	
+	<update id ="updateByPrimaryKey">
+		UPDATE phases
+    <set>
+		<if test="Id != null">id = #{Id},</if>
+		<if test="Phase != null">phase = #{Phase},</if>
+		<if test="Sort != null">sort = #{Sort},</if>
+    </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteByPrimaryKey">
+		DELETE FROM phases
+		WHERE id = #{id}
+	</delete>
+</mapper>

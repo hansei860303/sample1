@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="methodologic.sample.mapper.EmployeesMapper">
+	
+	<!-- mapperタグ内に、以下を追加 -->
+	
+	<select id="count" resultType="Long">
+		SELECT COUNT(*) FROM Employees
+	</select>
+	
+	<select id ="selectAll" resultType="methodologic.sample.model.Employees">
+		SELECT * FROM Employees
+	</select>
+	
+	<select id="selectByPrimaryKey" resultType="methodologic.sample.model.Employees">
+		SELECT * FROM Employees
+		WHERE id = #{Id}
+	</select>
+
+	<insert id="insert">
+		INSERT INTO Employees( 
+			FullName,
+			Furigana,
+			Pinyin,
+			Gender,
+			Nationality,
+			MarriedOrUnmarried,
+			DateOfBirth,
+			DateOfArrivalInJapan,
+			YearsInJapan,
+			NumberOfYearsInBusiness,
+			CellPhoneNumber,
+			Email,
+			EmergencyContactPhone ,
+			EmergencyContactName
+		)
+		VALUES( #{FullName},
+		        #{Furigana},
+		        #{Pinyin},
+		        #{Gender},
+		        #{Nationality},
+		        #{MarriedOrUnmarried},
+		        #{DateOfBirth},
+		        #{DateOfArrivalInJapan},		        
+		        #{YearsInJapan},
+		        #{NumberOfYearsInBusiness},
+		        #{CellPhoneNumber},
+		        #{Email},
+		        #{EmergencyContactPhone},
+			    #{EmergencyContactName}
+		      )
+	</insert>
+	
+	<update id ="updateByPrimaryKey">
+		UPDATE Employees
+    <set>
+		<if test="FullName != null">FullName = #{FullName},</if>
+		<if test="Furigana != null">Furigana = #{Furigana},</if>
+		<if test="Pinyin != null">Pinyin = #{Pinyin},</if>
+		<if test="Gender != null">Gender = #{Gender},</if>
+		<if test="Nationality != null">Nationality = #{Nationality},</if>
+		<if test="MarriedOrUnmarried != null">MarriedOrUnmarried = #{MarriedOrUnmarried},</if>
+		<if test="DateOfBirth != null">DateOfBirth = #{DateOfBirth},</if>
+		<if test="DateOfArrivalInJapan != null">DateOfArrivalInJapan = #{DateOfArrivalInJapan},</if>
+		<if test="YearsInJapan != null">YearsInJapan = #{YearsInJapan},</if>
+		<if test="NumberOfYearsInBusiness != null">NumberOfYearsInBusiness = #{NumberOfYearsInBusiness},</if>
+		<if test="CellPhoneNumber != null">CellPhoneNumber = #{CellPhoneNumber},</if>
+		<if test="Email != null">Email = #{Email},</if>
+		<if test="EmergencyContactPhone != null">EmergencyContactPhone = #{EmergencyContactPhone},</if>
+		<if test="EmergencyContactName != null">EmergencyContactName = #{EmergencyContactName}</if>
+    </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteByPrimaryKey">
+		DELETE FROM Employees
+		WHERE id = #{id}
+	</delete>
+</mapper>

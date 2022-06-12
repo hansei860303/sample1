@@ -1,0 +1,25 @@
+version: '3'
+services:
+    db:
+        image: mysql
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./sql:/docker-entrypoint-initdb.d
+        environment:
+            MYSQL_DATABASE: sampleDB
+            MYSQL_USER: mysql
+            MYSQL_PASSWORD: mysql
+            MYSQL_ROOT_PASSWORD: root
+    app:
+        build: .
+        image: sample
+        ports:
+            - "9001:9001"
+        volumes:
+            - .:/app
+        environment:
+            spring.datasource.driverClassName: "com.mysql.cj.jdbc.Driver"
+            spring.datasource.url: "jdbc:mysql://db/sampleDB"
+            spring.datasource.username: "mysql"
+            spring.datasource.password: "mysql"

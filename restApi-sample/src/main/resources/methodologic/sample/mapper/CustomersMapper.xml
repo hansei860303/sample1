@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="methodologic.sample.mapper.CustomersMapper">
+	
+	<!-- mapperタグ内に、以下を追加 -->
+	
+	<select id="count" resultType="Long">
+		SELECT COUNT(*) FROM Customers
+	</select>
+	
+	<select id ="selectAll" resultType="methodologic.sample.model.Customers">
+		SELECT * FROM Customers
+	</select>
+	
+	<select id="selectByPrimaryKey" resultType="methodologic.sample.model.Customers">
+		SELECT * FROM Customers
+		WHERE id = #{Id}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO Customers( CustomerName,
+		                       MainContactName,
+		                       Country,
+		                       City,
+		                       AddressLine1,
+		                       PostalCode,
+		                       ContactEmail,
+		                       MainPhone )
+		VALUES( #{CustomerName},
+		        #{MainContactName},
+		        #{Country},#{City},
+		        #{AddressLine1},
+		        #{PostalCode},
+		        #{ContactEmail},
+		        #{MainPhone} )
+	</insert>
+	
+	<update id ="updateByPrimaryKey">
+		UPDATE Customers
+    <set>
+		<if test="CustomerName != null">CustomerName = #{CustomerName},</if>
+		<if test="MainContactName != null">MainContactName = #{MainContactName},</if>
+		<if test="Country != null">Country = #{Country},</if>
+		<if test="City != null">City = #{City},</if>
+		<if test="AddressLine1 != null">AddressLine1 = #{AddressLine1},</if>
+		<if test="PostalCode != null">PostalCode = #{PostalCode},</if>
+		<if test="ContactEmail != null">ContactEmail = #{ContactEmail},</if>
+		<if test="MainPhone != null">MainPhone = #{MainPhone}</if>
+    </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteByPrimaryKey">
+		DELETE FROM Customers
+		WHERE id = #{id}
+	</delete>
+	
+</mapper>
