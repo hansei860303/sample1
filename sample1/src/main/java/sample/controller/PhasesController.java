@@ -45,7 +45,7 @@ public class PhasesController {
 	@Operation(summary = "データを新規・更新します")
 	@PutMapping("/save")
 	int save(@RequestBody Phases newPhase) {
-		if (newPhase.getId() == null) {
+		if (newPhase.getId() == null || newPhase.getId() == 0) {
 			return mapper.insert(newPhase);
 		} else {
 			return mapper.updateByPrimaryKey(newPhase);
